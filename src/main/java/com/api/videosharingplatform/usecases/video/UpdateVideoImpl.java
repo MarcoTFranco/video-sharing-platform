@@ -1,7 +1,9 @@
 package com.api.videosharingplatform.usecases.video;
 
 import com.api.videosharingplatform.adapter.input.request.VideoRequest;
+import com.api.videosharingplatform.adapter.output.repositories.CategoryRepository;
 import com.api.videosharingplatform.adapter.output.repositories.VideoRepository;
+import com.api.videosharingplatform.domain.entities.Category;
 import com.api.videosharingplatform.domain.entities.Video;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,8 @@ public class UpdateVideoImpl implements UpdateVideo {
 
     @Autowired
     private VideoRepository videoRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     @Override
     public Video changeVideoFields(Long id, VideoRequest videoRequest) {
@@ -26,5 +30,11 @@ public class UpdateVideoImpl implements UpdateVideo {
         video.setTitle(videoRequest.getTitle());
         video.setDescription(videoRequest.getDescription());
         video.setUrl(videoRequest.getUrl());
+        video.setCategory(findCategory(videoRequest));
+    }
+
+    private Category findCategory(VideoRequest videoRequest) {
+        return categoryRepository.findById(videoRequest.getCategoryId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 }

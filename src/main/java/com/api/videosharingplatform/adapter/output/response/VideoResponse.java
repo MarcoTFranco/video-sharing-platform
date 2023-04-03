@@ -10,10 +10,13 @@ public class VideoResponse {
 
     private final String url;
 
+    private final String idCategory;
+
     public VideoResponse(Video video) {
         this.title = video.getTitle();
         this.description = video.getDescription();
         this.url = video.getUrl();
+        this.idCategory = video.getCategory().getId().toString();
     }
 
     public String getTitle() {
@@ -26,5 +29,9 @@ public class VideoResponse {
 
     public String getUrl() {
         return url;
+    }
+
+    public String getIdCategory() {
+        return idCategory;
     }
 }

@@ -6,6 +6,7 @@ import com.api.videosharingplatform.domain.entities.Video;
 import com.api.videosharingplatform.usecases.video.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,13 +28,14 @@ public class VideoController {
     private UpdateVideo updateVideo;
     @Autowired
     private DeleteVideo deleteVideo;
+    @Autowired
+    private FindVideoByTitleCategory findVideoByTitleCategory;
 
     @PostMapping("/videos")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<VideoResponse> createVideo(@Valid @RequestBody VideoRequest videoRequest) {
         Video video = insertVideo.createVideo(videoRequest);
         VideoResponse videoResponse = new VideoResponse(video);
-        return ResponseEntity.ok().body(videoResponse);
+        return ResponseEntity.status(HttpStatus.CREATED).body(videoResponse);
     }
 
     @GetMapping("/videos/{id}")
@@ -63,6 +65,15 @@ public class VideoController {
     public ResponseEntity<Void> deleteVideo(@PathVariable Long id) {
         deleteVideo.deleteVideoById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/videos/")
+    public ResponseEntity<List<VideoResponse>> getVideosByCategoryTitle(@RequestParam(value = "search") String title) {
+        List <VideoResponse> videoResponse = findVideoByTitleCategory.getVideoByTitleCategory(title)
+                .stream()
+                .map(VideoResponse::new)
+                .toList();
+        return ResponseEntity.ok().body(videoResponse);
     }
 
 }
