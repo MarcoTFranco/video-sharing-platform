@@ -3,6 +3,7 @@ package com.api.videosharingplatform.domain.entities;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class Category {
     @NotBlank(message = "Colour is mandatory")
     private String colour;
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
-    private List<Video> videos;
+    private List<Video> videos = new ArrayList<>();
 
     @Deprecated
     public Category() {
@@ -50,5 +51,9 @@ public class Category {
 
     public void setColour(String colour) {
         this.colour = colour;
+    }
+
+    public void addVideo(Video video) {
+        this.videos.add(video);
     }
 }

@@ -4,7 +4,6 @@ import com.api.videosharingplatform.domain.entities.Category;
 import jakarta.validation.constraints.NotBlank;
 
 public class CategoryRequest {
-
     @NotBlank(message = "Title is mandatory")
     private String title;
     @NotBlank(message = "Colour is mandatory")

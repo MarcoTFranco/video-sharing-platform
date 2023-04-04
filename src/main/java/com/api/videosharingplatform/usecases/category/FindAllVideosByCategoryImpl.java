@@ -4,15 +4,18 @@ import com.api.videosharingplatform.adapter.output.repositories.CategoryReposito
 import com.api.videosharingplatform.domain.entities.Category;
 import com.api.videosharingplatform.domain.entities.Video;
 import com.api.videosharingplatform.service.exceptions.ResourceNotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-@Service
-public class FindAllVideosByCategoryImpl implements FindAllVideosByCategory{
 
-    @Autowired
+@Service
+public class FindAllVideosByCategoryImpl implements FindAllVideosByCategory {
+
     private CategoryRepository categoryRepository;
+
+    public FindAllVideosByCategoryImpl(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public List<Video> getAllVideosByCategory(Long id) {

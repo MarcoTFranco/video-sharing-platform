@@ -7,17 +7,19 @@ import com.api.videosharingplatform.domain.entities.Category;
 import com.api.videosharingplatform.domain.entities.Video;
 import com.api.videosharingplatform.service.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class InsertVideoImpl implements InsertVideo {
 
-    @Autowired
     private VideoRepository videoRepository;
 
-    @Autowired
     private CategoryRepository categoryRepository;
+
+    public InsertVideoImpl(VideoRepository videoRepository, CategoryRepository categoryRepository) {
+        this.videoRepository = videoRepository;
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     @Transactional

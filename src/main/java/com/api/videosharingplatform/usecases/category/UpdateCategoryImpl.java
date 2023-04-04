@@ -5,13 +5,16 @@ import com.api.videosharingplatform.adapter.output.repositories.CategoryReposito
 import com.api.videosharingplatform.domain.entities.Category;
 import com.api.videosharingplatform.service.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 @Service
 public class UpdateCategoryImpl implements UpdateCategory {
-    @Autowired
-    private CategoryRepository categoryRepository;
+
+    private final CategoryRepository categoryRepository;
+
+    public UpdateCategoryImpl(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     @Transactional

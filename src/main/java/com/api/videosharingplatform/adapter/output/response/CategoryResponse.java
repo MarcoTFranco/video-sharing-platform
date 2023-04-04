@@ -1,10 +1,6 @@
 package com.api.videosharingplatform.adapter.output.response;
 
 import com.api.videosharingplatform.domain.entities.Category;
-import com.api.videosharingplatform.domain.entities.Video;
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.OneToMany;
-import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;
 import java.util.stream.Collectors;
