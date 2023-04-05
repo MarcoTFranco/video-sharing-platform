@@ -7,15 +7,15 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 
 class InsertCategoryImplTest {
 
     private InsertCategory insertCategoryImpl;
     @Mock
     private CategoryRepository categoryRepository;
+    @Captor
+    private ArgumentCaptor<Category> captor;
 
     @BeforeEach
     void setUp() {
@@ -25,17 +25,18 @@ class InsertCategoryImplTest {
 
     @Test
     @DisplayName("Should create a category")
-    void createCategory() {
+    void test1() {
         Category category = insertCategoryImpl.createCategory(new CategoryRequest("Category Test",
                 "Category Test Description"));
 
-        Mockito.verify(categoryRepository).save(category);
+        Mockito.verify(categoryRepository).save(captor.capture());
+        Assertions.assertEquals(category, captor.getValue());
         Assertions.assertNotNull(category);
     }
 
     @Test
     @DisplayName("Should throw IllegalArgumentException when categoryRequest is null")
-    void createCategory2() {
+    void test2() {
         Assertions.assertThrows(IllegalArgumentException.class, () -> {
             insertCategoryImpl.createCategory(null);
         });

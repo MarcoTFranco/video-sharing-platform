@@ -34,7 +34,7 @@ class FindAllCategoriesImplTest {
     void test1() {
         Mockito.when(categoryRepository.findAll()).thenReturn(null);
         List<Category> categories = findAllCategories.getAllCategory();
-        Assertions.assertEquals(categories, null);
+        Assertions.assertNull(categories);
     }
 
     @Test

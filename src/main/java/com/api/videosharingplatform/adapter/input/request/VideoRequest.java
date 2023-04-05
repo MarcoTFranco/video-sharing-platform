@@ -2,6 +2,7 @@ package com.api.videosharingplatform.adapter.input.request;
 
 import com.api.videosharingplatform.domain.entities.Category;
 import com.api.videosharingplatform.domain.entities.Video;
+import com.api.videosharingplatform.service.annotations.UniqueValue;
 import jakarta.validation.constraints.NotBlank;
 
 public class VideoRequest {
@@ -12,6 +13,7 @@ public class VideoRequest {
     private String description;
     @NotBlank(message = "Url is mandatory")
     private String url;
+    @UniqueValue(domainClass = Category.class, fieldName = "categoryId")
     private Long categoryId;
 
     @Deprecated

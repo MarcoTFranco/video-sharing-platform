@@ -25,12 +25,12 @@ public class UpdateVideoImpl implements UpdateVideo {
     public Video changeVideoFields(Long id, VideoRequest videoRequest) {
         Video video = videoRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-        updateVideo(video, videoRequest);
+        updateVideoFields(video, videoRequest);
         videoRepository.save(video);
         return video;
     }
 
-    private void updateVideo(Video video, VideoRequest videoRequest) {
+    private void updateVideoFields(Video video, VideoRequest videoRequest) {
         video.setTitle(videoRequest.getTitle());
         video.setDescription(videoRequest.getDescription());
         video.setUrl(videoRequest.getUrl());
