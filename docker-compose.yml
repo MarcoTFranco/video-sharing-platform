@@ -12,7 +12,7 @@ services:
     networks:
       - spring-network
     ports:
-      - "3306:3306"
+      - "3000:3306"
 
 networks:
   spring-network:

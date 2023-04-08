@@ -1,6 +1,7 @@
 package com.api.videosharingplatform.usecases.category;
 
 import com.api.videosharingplatform.adapter.output.repositories.CategoryRepository;
+import com.api.videosharingplatform.adapter.output.repositories.VideoRepository;
 import com.api.videosharingplatform.domain.entities.Category;
 import com.api.videosharingplatform.domain.entities.Video;
 import org.junit.jupiter.api.Assertions;
@@ -19,13 +20,15 @@ class FindAllVideosByCategoryImplTest {
     private FindAllVideosByCategory findAllVideosByCategory;
     @Mock
     private CategoryRepository categoryRepository;
+    @Mock
+    private VideoRepository videoRepository;
     private Category category;
     private Category category2;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        this.findAllVideosByCategory = new FindAllVideosByCategoryImpl(categoryRepository);
+        this.findAllVideosByCategory = new FindAllVideosByCategoryImpl(categoryRepository, videoRepository);
 
         category = new Category("title", "description");
         category.addVideo(new Video("title0", "description0", "url0", this.category));

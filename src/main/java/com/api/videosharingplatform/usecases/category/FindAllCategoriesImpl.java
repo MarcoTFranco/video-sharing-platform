@@ -2,6 +2,8 @@ package com.api.videosharingplatform.usecases.category;
 
 import com.api.videosharingplatform.adapter.output.repositories.CategoryRepository;
 import com.api.videosharingplatform.domain.entities.Category;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,5 +20,10 @@ public class FindAllCategoriesImpl implements FindAllCategories{
     @Override
     public List<Category> getAllCategory() {
         return categoryRepository.findAll();
+    }
+
+    @Override
+    public Page<Category> getAllCategoryPage(Pageable pageable) {
+        return categoryRepository.findAll(pageable);
     }
 }
